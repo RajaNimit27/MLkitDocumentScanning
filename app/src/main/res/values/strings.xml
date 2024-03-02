@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MLkitDocumentScanning</string>
+    <string name="scan_button" translatable="false">Scan Document</string>
+</resources>
