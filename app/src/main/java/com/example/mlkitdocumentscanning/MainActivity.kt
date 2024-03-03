@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val options = GmsDocumentScannerOptions.Builder()
                 .setScannerMode(GmsDocumentScannerOptions.SCANNER_MODE_BASE)
-                .setResultFormats(GmsDocumentScannerOptions.RESULT_FORMAT_PDF)
+                .setResultFormats(GmsDocumentScannerOptions.RESULT_FORMAT_PDF,GmsDocumentScannerOptions.RESULT_FORMAT_JPEG)
                 .setGalleryImportAllowed(true)
                 .setScannerMode(GmsDocumentScannerOptions.SCANNER_MODE_FULL)
                 .setPageLimit(3)
@@ -70,6 +70,12 @@ class MainActivity : AppCompatActivity() {
             val resultCode = activityResult.resultCode
             val result = GmsDocumentScanningResult.fromActivityResultIntent(activityResult.data)
             if (resultCode == Activity.RESULT_OK && result != null) {
+
+                result.pages?.let { pages ->
+                    for (page in pages) {
+                        val imageUri = pages.get(0).getImageUri()
+                    }
+                }
                 result.pdf?.uri?.path?.let { path ->
                     val externalUri = FileProvider.getUriForFile(this, packageName + ".provider", File(path))
                     val shareIntent =
